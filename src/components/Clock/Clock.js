@@ -1,10 +1,24 @@
-import LabelControl from "../LabelControl";
+import styled from "styled-components";
+import Heading from "../Heading";
+import Controls from "../Controls";
+
+const WrappedClock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 200px;
+  background-color: #f5f5f5;
+  padding: 3rem;
+`;
 
 const Clock = () => {
   return (
-    <LabelControl
-      label={'asdasd'} value={5}
-    />
+    <WrappedClock>
+      <Heading />
+      <Controls />
+    </WrappedClock>
   );
 };
 
