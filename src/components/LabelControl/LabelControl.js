@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {FaArrowDown, FaArrowUp} from "react-icons/fa"
+import * as FAIcons from "react-icons/fa";
 
 const Style = styled.div`
   display: flex;
@@ -21,19 +21,43 @@ const ArrowButton = styled.button`
   background-color: transparent;
 `
 
-const LabelControl = ({label, value, id, buttonIdUp, buttonIdDown, idValue}) => (
-  <Style>
-    <div id={id}>{label}</div>
-    <Arrows>
-      <ArrowButton id={buttonIdUp}>
-        <FaArrowUp />
-      </ArrowButton>
-      <div id={idValue}>{value}</div>
-      <ArrowButton id={buttonIdDown}>
-        <FaArrowDown />
-      </ArrowButton>
-    </Arrows>
-  </Style>
-)
+const Label = styled.label`
+  font-size: 1.5em;
+  margin-top: 10px;
+`
+
+const StyledValue = styled.div`
+  font-size: 1.5em;
+`
+
+const LabelControl = ({label, value, id, buttonIdUp, buttonIdDown, idValue }) => {
+
+  return(
+    <Style>
+      <Label id={id}>{label}</Label>
+      <Arrows>
+        <Button id={buttonIdUp} icon='FaArrowUp' />
+        <Value value={value} idValue={idValue} />
+        <Button id={buttonIdDown} icon='FaArrowDown' />
+      </Arrows>
+    </Style>
+  )
+}
+
+const Value = ({value, idValue}) => {
+  return(
+    <StyledValue id={idValue}>{value}</StyledValue>
+  )
+}
+
+const Button = ({icon, id}) => {
+  const Icon = FAIcons[icon];
+
+  return(
+    <ArrowButton id={id}>
+      <Icon color={'#fff'} />
+    </ArrowButton>
+  )
+}
 
 export default LabelControl;

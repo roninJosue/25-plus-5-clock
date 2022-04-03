@@ -9,7 +9,6 @@ const WrappedClock = styled.div`
   justify-content: center;
   width: 40%;
   height: 200px;
-  background-color: #f5f5f5;
   padding: 3rem;
 `;
 

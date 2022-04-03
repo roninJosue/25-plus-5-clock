@@ -11,6 +11,6 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 16px;
     line-height: 1.5;
     background-color: #183153;
-    color: #183153;
+    color: #fff;
   }
 `
