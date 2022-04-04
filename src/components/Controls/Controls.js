@@ -1,5 +1,7 @@
-import LabelControl from "../LabelControl";
+import {useContext} from "react";
 import styled from "styled-components";
+import LabelControl from "../LabelControl";
+import ClockContext from "../../context/ClockContext";
 
 const WrappedControls = styled.div`
   display: flex;
@@ -9,23 +11,35 @@ const WrappedControls = styled.div`
 `;
 
 const Controls = () => {
+  const {
+    breakLength,
+    sessionLength,
+    incrementBreakLength,
+    incrementSessionLength,
+    decrementBreakLength,
+    decrementSessionLength,
+  } = useContext(ClockContext);
   return(
     <WrappedControls>
       <LabelControl
         label={'Break Length'}
-        value={'5'}
+        value={breakLength}
         id={'break-label'}
         buttonIdUp={'break-increment'}
         buttonIdDown={'break-decrement'}
         idValue={'break-length'}
+        increment={incrementBreakLength}
+        decrement={decrementBreakLength}
       />
       <LabelControl
         label={'Session Length'}
-        value={'25'}
+        value={sessionLength}
         id={'session-label'}
         buttonIdUp={'session-increment'}
         buttonIdDown={'session-decrement'}
         idValue={'session-length'}
+        increment={incrementSessionLength}
+        decrement={decrementSessionLength}
       />
     </WrappedControls>
   )

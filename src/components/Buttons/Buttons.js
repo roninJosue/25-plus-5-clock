@@ -1,6 +1,8 @@
 import {FaPlay, FaPause} from "react-icons/fa";
 import {HiOutlineRefresh} from "react-icons/hi";
 import styled from "styled-components";
+import ClockContext from "../../context/ClockContext";
+import {useContext} from "react";
 
 const ButtonsWrapped = styled.div`
   margin-top: 20px;
@@ -19,9 +21,10 @@ const Button = styled.button`
 `
 
 const Buttons = () => {
+  const {handleStartStop} = useContext(ClockContext);
   return (
     <ButtonsWrapped>
-      <Button onClick={() => console.log('adasd')} id='start_stop'>
+      <Button onClick={handleStartStop} id='start_stop'>
         <FaPlay/>
         <FaPause/>
       </Button>

@@ -1,4 +1,6 @@
+import {useContext} from "react";
 import styled from "styled-components";
+import ClockContext from "../../context/ClockContext";
 
 const Heading = styled.h2`
 `
@@ -20,10 +22,11 @@ const TimeLeft = styled.div`
 `
 
 const Timer = () => {
+  const {formatTime} = useContext(ClockContext);
 return (
   <TimerWrapper>
     <Heading id='timer-label'>Session</Heading>
-    <TimeLeft id='time-left'>25:00</TimeLeft>
+    <TimeLeft id='time-left'>{formatTime()}</TimeLeft>
   </TimerWrapper> )
 }
 export default Timer

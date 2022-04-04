@@ -30,15 +30,34 @@ const StyledValue = styled.div`
   font-size: 1.5em;
 `
 
-const LabelControl = ({label, value, id, buttonIdUp, buttonIdDown, idValue }) => {
+const LabelControl = (
+  {
+    label,
+    value,
+    id,
+    buttonIdUp,
+    buttonIdDown,
+    idValue,
+    increment,
+    decrement
+  }
+) => {
 
   return(
     <Style>
       <Label id={id}>{label}</Label>
       <Arrows>
-        <Button id={buttonIdUp} icon='FaArrowUp' />
+        <Button
+          onClick={increment}
+          id={buttonIdUp}
+          icon='FaArrowUp'
+        />
         <Value value={value} idValue={idValue} />
-        <Button id={buttonIdDown} icon='FaArrowDown' />
+        <Button
+          onClick={decrement}
+          id={buttonIdDown}
+          icon='FaArrowDown'
+        />
       </Arrows>
     </Style>
   )
@@ -50,11 +69,11 @@ const Value = ({value, idValue}) => {
   )
 }
 
-const Button = ({icon, id}) => {
+const Button = ({icon, id, onClick}) => {
   const Icon = FAIcons[icon];
 
   return(
-    <ArrowButton id={id}>
+    <ArrowButton onClick={onClick} id={id}>
       <Icon color={'#fff'} />
     </ArrowButton>
   )
