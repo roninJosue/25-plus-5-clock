@@ -5,7 +5,7 @@ import styled from "styled-components";
 const ButtonsWrapped = styled.div`
   margin-top: 20px;
   display: flex;
-  width: 250px;
+  width: 120px;
   justify-content: space-evenly;
   align-items: center;
 `
@@ -21,13 +21,11 @@ const Button = styled.button`
 const Buttons = () => {
   return (
     <ButtonsWrapped>
-      <Button onClick={() => console.log('adasd')}>
+      <Button onClick={() => console.log('adasd')} id='start_stop'>
         <FaPlay/>
-      </Button>
-      <Button>
         <FaPause/>
       </Button>
-      <Button>
+      <Button id='reset'>
         <HiOutlineRefresh/>
       </Button>
     </ButtonsWrapped>

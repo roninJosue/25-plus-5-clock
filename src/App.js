@@ -3,6 +3,7 @@ import Clock from "./components/Clock";
 import {GlobalStyles} from "./styles/GlobalStyles";
 import Timer from "./components/Timer";
 import Buttons from "./components/Buttons";
+import ClockContextProvider from "./context/ClockContextProvider";
 
 const Wrapped = styled.main`
   display: flex;
@@ -14,14 +15,14 @@ const Wrapped = styled.main`
 
 function App() {
   return (
-    <>
+    <ClockContextProvider>
       <GlobalStyles />
       <Wrapped>
         <Clock />
         <Timer />
         <Buttons />
       </Wrapped>
-    </>
+    </ClockContextProvider>
   );
 }
 
