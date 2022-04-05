@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 const useClock = () => {
   const [breakLength, setBreakLength] = useState(5);
   const [sessionLength, setSessionLength] = useState(25);
-  const [timer, setTimer] = useState(25);
+  const [timer, setTimer] = useState(1500);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
@@ -12,6 +12,7 @@ const useClock = () => {
         if (timer < 1) {
           setIsRunning(r => !r);
           clearInterval(interval);
+          playSound()
         } else {
           setTimer(t => t - 1);
         }
@@ -36,7 +37,7 @@ const useClock = () => {
   const incrementSessionLength = () => {
     const newSessionLength = sessionLength + 1;
     if (sessionLength < 60) {
-      setTimer(newSessionLength);
+      setTimer(newSessionLength * 60);
       setSessionLength(newSessionLength);
     }
   };
@@ -45,7 +46,7 @@ const useClock = () => {
     const newSessionLength = sessionLength - 1;
     if (sessionLength > 1) {
       setSessionLength(newSessionLength);
-      setTimer(newSessionLength);
+      setTimer(newSessionLength * 60);
     }
   };
 
@@ -59,10 +60,16 @@ const useClock = () => {
     return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  const playSound = () => {
+    const audio = document.getElementById('beep');
+    audio.play()
+  }
+
   return {
     breakLength,
     sessionLength,
     timer,
+    isRunning,
     incrementSessionLength,
     decrementSessionLength,
     incrementBreakLength,

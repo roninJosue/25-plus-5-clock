@@ -4,6 +4,7 @@ import {GlobalStyles} from "./styles/GlobalStyles";
 import Timer from "./components/Timer";
 import Buttons from "./components/Buttons";
 import ClockContextProvider from "./context/ClockContextProvider";
+import Beep from "./components/Beep";
 
 const Wrapped = styled.main`
   display: flex;
@@ -21,6 +22,7 @@ function App() {
         <Clock />
         <Timer />
         <Buttons />
+        <Beep />
       </Wrapped>
     </ClockContextProvider>
   );
