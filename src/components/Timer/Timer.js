@@ -22,10 +22,10 @@ const TimeLeft = styled.div`
 `
 
 const Timer = () => {
-  const {formatTime} = useContext(ClockContext);
+  const {formatTime, timerType} = useContext(ClockContext);
 return (
   <TimerWrapper>
-    <Heading id='timer-label'>Session</Heading>
+    <Heading id='timer-label'>{timerType}</Heading>
     <TimeLeft id='time-left'>{formatTime()}</TimeLeft>
   </TimerWrapper> )
 }

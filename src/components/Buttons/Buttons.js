@@ -21,14 +21,14 @@ const Button = styled.button`
 `
 
 const Buttons = () => {
-  const {handleStartStop} = useContext(ClockContext);
+  const {handleStartStop, resetTimer} = useContext(ClockContext);
   return (
     <ButtonsWrapped>
       <Button onClick={handleStartStop} id='start_stop'>
         <FaPlay/>
         <FaPause/>
       </Button>
-      <Button id='reset'>
+      <Button id='reset' onClick={resetTimer}>
         <HiOutlineRefresh/>
       </Button>
     </ButtonsWrapped>

@@ -1,53 +1,88 @@
 import {useEffect, useState} from "react";
 
+const INITIAL_BREAK_LENGTH = 1;
+const INITIAL_SESSION_LENGTH = 1;
+const INITIAL_TIMER_TYPE = "Session";
+const INITIAL_TIMER = INITIAL_SESSION_LENGTH * 60;
+const TIMER_VELOCITY = 100;
+
 const useClock = () => {
-  const [breakLength, setBreakLength] = useState(5);
-  const [sessionLength, setSessionLength] = useState(25);
-  const [timer, setTimer] = useState(1500);
+  const [breakLength, setBreakLength] = useState(INITIAL_BREAK_LENGTH);
+  const [sessionLength, setSessionLength] = useState(INITIAL_SESSION_LENGTH);
+  const [timer, setTimer] = useState(INITIAL_TIMER);
   const [isRunning, setIsRunning] = useState(false);
+  const [timerSessionFinished, setTimerSessionFinished] = useState(false);
+  const [timerType, setTimerType] = useState(INITIAL_TIMER_TYPE);
 
   useEffect(() => {
     if (isRunning) {
       const interval = setInterval(() => {
         if (timer < 1) {
-          setIsRunning(r => !r);
-          clearInterval(interval);
           playSound()
+          //setIsRunning(r => !r);
+          setTimerType('Break');
+          setTimerSessionFinished(r => !r);
+          clearInterval(interval);
         } else {
           setTimer(t => t - 1);
         }
-      }, 1000);
+      }, TIMER_VELOCITY);
       return () => clearInterval(interval);
     }
   }, [breakLength, sessionLength, timer, isRunning]);
 
+  useEffect(() => {
+    if (timerSessionFinished) {
+      console.log('break')
+      setTimer( t => breakLength * 60);
+      const interval = setInterval(() => {
+        if (timer < 1) {
+          //setTimer(t => t - 1);
+          //clearInterval(interval);
+        } else {
+          setTimer(t => t - 1);
+        }
+      }, TIMER_VELOCITY);
+      return () => clearInterval(interval);
+    }
+  }, [timerSessionFinished]);
+
 
   const incrementBreakLength = () => {
-    if (breakLength < 60) {
-      setBreakLength(breakLength + 1);
+    if(!isRunning) {
+      if (breakLength < 60) {
+        setBreakLength(breakLength + 1);
+      }
     }
+
   };
 
   const decrementBreakLength = () => {
-    if (breakLength > 1) {
-      setBreakLength(breakLength - 1);
-    }
+   if (!isRunning) {
+     if (breakLength > 1) {
+       setBreakLength(breakLength - 1);
+     }
+   }
   };
 
   const incrementSessionLength = () => {
-    const newSessionLength = sessionLength + 1;
-    if (sessionLength < 60) {
-      setTimer(newSessionLength * 60);
-      setSessionLength(newSessionLength);
+    if (!isRunning) {
+      const newSessionLength = sessionLength + 1;
+      if (sessionLength < 60) {
+        setTimer(newSessionLength * 60);
+        setSessionLength(newSessionLength);
+      }
     }
   };
 
   const decrementSessionLength = () => {
-    const newSessionLength = sessionLength - 1;
-    if (sessionLength > 1) {
-      setSessionLength(newSessionLength);
-      setTimer(newSessionLength * 60);
-    }
+   if (!isRunning) {
+     const newSessionLength = sessionLength - 1;
+     if (sessionLength > 1) {
+       setSessionLength(newSessionLength);
+       setTimer(newSessionLength * 60);
+     }
+   }
   };
 
   const handleStartStop = () => {
@@ -65,17 +100,27 @@ const useClock = () => {
     audio.play()
   }
 
+  const resetTimer = () => {
+    setSessionLength(INITIAL_SESSION_LENGTH);
+    setBreakLength(INITIAL_BREAK_LENGTH);
+    setTimer(INITIAL_TIMER);
+    setIsRunning(false);
+    setTimerType(INITIAL_TIMER_TYPE);
+  };
+
   return {
     breakLength,
     sessionLength,
     timer,
     isRunning,
+    timerType,
     incrementSessionLength,
     decrementSessionLength,
     incrementBreakLength,
     decrementBreakLength,
     handleStartStop,
-    formatTime
+    formatTime,
+    resetTimer
   };
 }
 
