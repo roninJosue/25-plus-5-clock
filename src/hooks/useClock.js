@@ -33,12 +33,9 @@ const useClock = () => {
 
   useEffect(() => {
     if (timerSessionFinished) {
-      console.log('break')
       setTimer( t => breakLength * 60);
       const interval = setInterval(() => {
         if (timer < 1) {
-          //setTimer(t => t - 1);
-          //clearInterval(interval);
         } else {
           setTimer(t => t - 1);
         }
