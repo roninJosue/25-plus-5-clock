@@ -6,13 +6,14 @@ const ClockContext = createContext({
   timer: 25,
   isSession: true,
   timerType: "Session",
-  incrementSessionLength: () => {},
-  decrementSessionLength: () => {},
-  incrementBreakLength: () => {},
-  decrementBreakLength: () => {},
-  handleStartStop: () => {},
-  formatTime: () => {},
-  resetTimer: () => {},
+  beepRef: null,
+  incrementSessionLength: null,
+  decrementSessionLength: null,
+  incrementBreakLength: null,
+  decrementBreakLength: null,
+  handleStartStop: null,
+  formatTime: null,
+  resetTimer: null,
 })
 
 export default ClockContext

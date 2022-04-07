@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import * as FAIcons from "react-icons/fa";
 
@@ -43,6 +44,7 @@ const LabelControl = (
   }
 ) => {
 
+  console.count("LabelControl")
   return(
     <Style>
       <Label id={id}>{label}</Label>
@@ -79,4 +81,4 @@ const Button = ({icon, id, onClick}) => {
   )
 }
 
-export default LabelControl;
+export default React.memo(LabelControl);

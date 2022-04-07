@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import LabelControl from "../LabelControl";
 import ClockContext from "../../context/ClockContext";
@@ -45,4 +45,4 @@ const Controls = () => {
   )
 }
 
-export default Controls;
+export default React.memo(Controls);

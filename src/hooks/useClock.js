@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
-const INITIAL_BREAK_LENGTH = 1;
-const INITIAL_SESSION_LENGTH = 1;
+const INITIAL_BREAK_LENGTH = 5;
+const INITIAL_SESSION_LENGTH = 25;
 const INITIAL_TIMER_TYPE = "Session";
 const INITIAL_TIMER = INITIAL_SESSION_LENGTH * 60;
-const TIMER_VELOCITY = 300;
+const TIMER_VELOCITY = 1000;
 
 const useClock = () => {
   const [breakLength, setBreakLength] = useState(INITIAL_BREAK_LENGTH);
@@ -13,48 +13,45 @@ const useClock = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [timerSessionFinished, setTimerSessionFinished] = useState(false);
   const [timerType, setTimerType] = useState(INITIAL_TIMER_TYPE);
+  const beepRef = useRef(null);
 
-/*  useEffect(() => {
+  useEffect(() => {
     if (isRunning && !timerSessionFinished) {
       const interval = setInterval(() => {
-        if (timer < 1) {
-          //playSound()
+        if (timer === 2) playSound()
+        if (timer === 0) {
           clearInterval(interval);
           setIsRunning(r => !r);
           setTimerType('Break');
-          setTimer( t => breakLength * 60);
+          setTimer( breakLength * 60);
           setTimerSessionFinished(r => !r);
         } else {
-          console.log(timer)
           setTimer(t => t - 1);
         }
       }, TIMER_VELOCITY);
       return () => clearInterval(interval);
     }
-  }, [breakLength, sessionLength, timer, isRunning]);*/
+  }, [breakLength, sessionLength, timer, isRunning, timerSessionFinished]);
 
   useEffect(() => {
     if (timerSessionFinished) {
-      //setTimerSessionFinished(r => !r);
       const interval = setInterval(() => {
-        if (timer < 1) {
-          console.log('end break');
-          //playSound()
-          setTimer(t => sessionLength * 60);
+        if (timer === 2) playSound()
+        if (timer === 0) {
+          setTimer(sessionLength * 60);
           setTimerSessionFinished(false);
           setTimerType(INITIAL_TIMER_TYPE)
-          setSessionLength(INITIAL_SESSION_LENGTH);
-          setBreakLength(INITIAL_BREAK_LENGTH);
+          setSessionLength(sessionLength);
+          setBreakLength(breakLength);
           setIsRunning(true);
           clearInterval(interval);
         } else {
-          console.log('timer break', timer);
           setTimer( t => t - 1);
         }
       }, TIMER_VELOCITY);
       return () => clearInterval(interval);
     }
-  }, []);
+  }, [timerSessionFinished, timer, sessionLength, breakLength, isRunning]);
 
 
   const incrementBreakLength = () => {
@@ -105,16 +102,18 @@ const useClock = () => {
   };
 
   const playSound = () => {
-    const audio = document.getElementById('beep');
-    audio.play()
+    beepRef.current.play()
   }
 
   const resetTimer = () => {
+    beepRef.current.pause();
+    beepRef.current.currentTime = 0;
     setSessionLength(INITIAL_SESSION_LENGTH);
     setBreakLength(INITIAL_BREAK_LENGTH);
     setTimer(INITIAL_TIMER);
     setIsRunning(false);
     setTimerType(INITIAL_TIMER_TYPE);
+    setTimerSessionFinished(false);
   };
 
   return {
@@ -123,6 +122,7 @@ const useClock = () => {
     timer,
     isRunning,
     timerType,
+    beepRef,
     incrementSessionLength,
     decrementSessionLength,
     incrementBreakLength,
