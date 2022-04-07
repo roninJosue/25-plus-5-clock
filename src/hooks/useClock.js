@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 
 const INITIAL_BREAK_LENGTH = 5;
 const INITIAL_SESSION_LENGTH = 25;
@@ -54,24 +54,24 @@ const useClock = () => {
   }, [timerSessionFinished, timer, sessionLength, breakLength, isRunning]);
 
 
-  const incrementBreakLength = () => {
+  const incrementBreakLength = useCallback(() => {
     if(!isRunning) {
       if (breakLength < 60) {
         setBreakLength(breakLength + 1);
       }
     }
 
-  };
+  }, [breakLength, isRunning]);
 
-  const decrementBreakLength = () => {
-   if (!isRunning) {
-     if (breakLength > 1) {
-       setBreakLength(breakLength - 1);
-     }
-   }
-  };
+  const decrementBreakLength = useCallback(() => {
+    if(!isRunning) {
+      if (breakLength > 1) {
+        setBreakLength(breakLength - 1);
+      }
+    }
+  }, [breakLength, isRunning]);
 
-  const incrementSessionLength = () => {
+  const incrementSessionLength = useCallback(() => {
     if (!isRunning) {
       const newSessionLength = sessionLength + 1;
       if (sessionLength < 60) {
@@ -79,21 +79,21 @@ const useClock = () => {
         setSessionLength(newSessionLength);
       }
     }
-  };
+  }, [sessionLength, isRunning]);
 
-  const decrementSessionLength = () => {
-   if (!isRunning) {
-     const newSessionLength = sessionLength - 1;
-     if (sessionLength > 1) {
-       setSessionLength(newSessionLength);
-       setTimer(newSessionLength * 60);
-     }
-   }
-  };
+  const decrementSessionLength = useCallback(() => {
+    if (!isRunning) {
+      const newSessionLength = sessionLength - 1;
+      if (sessionLength > 1) {
+        setSessionLength(newSessionLength);
+        setTimer(newSessionLength * 60);
+      }
+    }
+  }, [sessionLength, isRunning]);
 
-  const handleStartStop = () => {
+  const handleStartStop = useCallback(() => {
     setIsRunning(!isRunning);
-  };
+  }, [isRunning]);
 
   const formatTime = () => {
     const minutes = Math.floor(timer / 60);
