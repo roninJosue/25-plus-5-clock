@@ -4,7 +4,7 @@ const INITIAL_BREAK_LENGTH = 1;
 const INITIAL_SESSION_LENGTH = 1;
 const INITIAL_TIMER_TYPE = "Session";
 const INITIAL_TIMER = INITIAL_SESSION_LENGTH * 60;
-const TIMER_VELOCITY = 100;
+const TIMER_VELOCITY = 300;
 
 const useClock = () => {
   const [breakLength, setBreakLength] = useState(INITIAL_BREAK_LENGTH);
@@ -14,35 +14,47 @@ const useClock = () => {
   const [timerSessionFinished, setTimerSessionFinished] = useState(false);
   const [timerType, setTimerType] = useState(INITIAL_TIMER_TYPE);
 
-  useEffect(() => {
-    if (isRunning) {
+/*  useEffect(() => {
+    if (isRunning && !timerSessionFinished) {
       const interval = setInterval(() => {
         if (timer < 1) {
-          playSound()
-          //setIsRunning(r => !r);
-          setTimerType('Break');
-          setTimerSessionFinished(r => !r);
+          //playSound()
           clearInterval(interval);
+          setIsRunning(r => !r);
+          setTimerType('Break');
+          setTimer( t => breakLength * 60);
+          setTimerSessionFinished(r => !r);
         } else {
+          console.log(timer)
           setTimer(t => t - 1);
         }
       }, TIMER_VELOCITY);
       return () => clearInterval(interval);
     }
-  }, [breakLength, sessionLength, timer, isRunning]);
+  }, [breakLength, sessionLength, timer, isRunning]);*/
 
   useEffect(() => {
     if (timerSessionFinished) {
-      setTimer( t => breakLength * 60);
+      //setTimerSessionFinished(r => !r);
       const interval = setInterval(() => {
         if (timer < 1) {
+          console.log('end break');
+          //playSound()
+          setTimer(t => sessionLength * 60);
+          setTimerSessionFinished(false);
+          setTimerType(INITIAL_TIMER_TYPE)
+          setSessionLength(INITIAL_SESSION_LENGTH);
+          setBreakLength(INITIAL_BREAK_LENGTH);
+          setIsRunning(true);
+          clearInterval(interval);
         } else {
-          setTimer(t => t - 1);
+          console.log('timer break', timer);
+          setTimer( t => t - 1);
         }
       }, TIMER_VELOCITY);
       return () => clearInterval(interval);
     }
-  }, [timerSessionFinished]);
+  }, []);
 
 
   const incrementBreakLength = () => {
