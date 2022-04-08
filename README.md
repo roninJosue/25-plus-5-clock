@@ -8,7 +8,7 @@
 
 <div align="center">
   <h3>
-    <a href="#">
+    <a href="https://fcc-25-plus-5-clock.netlify.app/">
       Demo
     </a>
     <span> | </span>
@@ -16,7 +16,7 @@
       Project
     </a>
     <span> | </span>
-    <a href="#">
+    <a href="https://github.com/roninJosue/freecodecamp/tree/main/FrontEndDevelopmentLibraries/Projects/25Plus5Clock">
       FreeCodeCamp
     </a>
   </h3>
@@ -38,14 +38,13 @@
 
 ### This is how the application is displayed
 
-![screenshot](?raw=true)
+![screenshot](https://github.com/roninJosue/freecodecamp/blob/main/FrontEndDevelopmentLibraries/Projects/25Plus5Clock/25-plus-5.jpg?raw=true)
 <br/>
 ### Built With
 
 - [React](https://reactjs.org/)
 - [Create React App](https://create-react-app.dev/)
 - [Styled Components](https://styled-components.com/)
-- [Recoil](https://recoiljs.org/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -63,10 +62,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Features
 
-This application/site was created as a submission to a Front End Development Libraries project from freeCodeCamp.
-
-Calculator is a simple calculator that can perform basic arithmetic operations. It can perform addition, subtraction, multiplication, and division.
-Showing the result of the operation is done by clicking the "=" button.
+This application has the following features:
+* Increment and decrement buttons, add or subtract from the clock.
+* When the clock reaches 0, it will reset to break length. Also, a beep sound will play.
+* State is managed using React Context.
 
 ---
 
